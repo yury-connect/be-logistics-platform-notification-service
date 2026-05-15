@@ -1,4 +1,4 @@
-package com.innowise.logistics.notificationservice.utils;
+package com.innowise.logistics.notificationservice.consumer;
 
 import com.innowise.logistics.notificationservice.client.UserServiceClient;  // 👈 короткий импорт
 import com.innowise.logistics.notificationservice.dto.NotificationEvent;
