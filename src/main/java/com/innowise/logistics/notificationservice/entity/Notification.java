@@ -1,34 +1,32 @@
 package com.innowise.logistics.notificationservice.entity;
 
-import com.innowise.logistics.notificationservice.config.JsonbConverter;
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 import java.util.Map;
 
-@Entity
-@Table(name = "notifications")
+@Document(collection = "notifications")
 @Data
 @NoArgsConstructor
 public class Notification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;  // MongoDB использует String, не Long!
 
-    @Column(unique = true, nullable = false)
+    @Indexed(unique = true)  // Уникальный индекс для защиты от дублей
     private String kafkaEventId;
 
     private Long userId;
 
-    @Convert(converter = JsonbConverter.class)
     private Map<String, Object> payload;
 
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private Instant createdAt = Instant.now();
-    private Instant sentAt;   // null = не отправлено или ошибка
+
+    private Instant sentAt;
 }
