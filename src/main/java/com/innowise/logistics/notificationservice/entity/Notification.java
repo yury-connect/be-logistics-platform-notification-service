@@ -17,12 +17,12 @@ public class Notification {
     @Id
     private String id;  // MongoDB использует String, не Long!
 
-    @Indexed(unique = true)  // Уникальный индекс для защиты от дублей
+    @Indexed(unique = true)
     private String kafkaEventId;
 
     private Long userId;
 
-    private Map<String, Object> payload;
+    private Map<String, Object> payload;  // ✅ MongoDB сам умеет хранить Map
 
     private String content;
 
